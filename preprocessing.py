@@ -1,5 +1,6 @@
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import HashingVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cross_validation import train_test_split
 
 class  Preprocess:
@@ -53,21 +54,21 @@ class  Preprocess:
 	def countVector(self):
 		vectorizer = CountVectorizer(min_df=1, stop_words='english')
 		self.X_train = vectorizer.fit_transform(self.train_corpus)
-		self.X_test = vectorizer.fit_transform(self.test_corpus)
+		self.X_test = vectorizer.transform(self.test_corpus)
 		self.train_size = self.X_train.shape[0]
 		self.test_size = self.X_test.shape[0]
 
 	def hashingVector(self):
 		vectorizer = HashingVectorizer(stop_words='english', non_negative=True) #n_features: default, 1048576
-		self.X_train = vectorizer.transform(self.train_corpus)
+		self.X_train = vectorizer.fit_transform(self.train_corpus)
 		self.X_test = vectorizer.transform(self.test_corpus)
 		self.train_size = self.X_train.shape[0]
 		self.test_size = self.X_test.shape[0]
 
 	def tfIdfVector(self):
-		vectorizer = TfidfVectorizer(min_df=1, max_df=.6, stop_words='english', non_negative=True) #n_features: default, 1048576
+		vectorizer = TfidfVectorizer(min_df=1, max_df=.8, stop_words='english') #n_features: default, 1048576
 		self.X_train = vectorizer.fit_transform(self.train_corpus)
-		self.X_test = vectorizer.fit_transform(self.test_corpus)
+		self.X_test = vectorizer.transform(self.test_corpus)
 		self.train_size = self.X_train.shape[0]
 		self.test_size = self.X_test.shape[0]
 
