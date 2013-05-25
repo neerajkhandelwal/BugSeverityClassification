@@ -25,6 +25,8 @@ class  Preprocess:
 		'6': 'enhancement'
 	}
 
+	# Try using binary classification.
+
 	def createCorpus(self, data):
 		# Removing the stop words and minimum document frequency is 1.
 		corpus = []

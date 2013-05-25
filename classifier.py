@@ -1,13 +1,18 @@
 from sklearn import svm
 from sklearn import metrics
+from sklearn.naive_bayes import GaussianNB
+# from sklearn.neighbors import KNeighborsClassifier
 
 class Classifier:
 	# classifier 'svc' is C implementation of SVM.
 
 	def benchmark(self, classification):
 		print "##########  Testing and Benchmarking the classifier. ##########\n\n\n"
-		
-		prediction = classification.predict(self.X_test)
+
+		if self.classifier == 'gnb':
+			prediction = classification.predict(self.X_test.toarray())
+		else:
+			prediction = classification.predict(self.X_test)
 
 		print "##########  Results. ##########\n\n\n"
 
@@ -18,6 +23,13 @@ class Classifier:
 		print "Classification report: \n"
 		print metrics.classification_report(self.y_test, prediction, target_names=self.classes)
 
+	# Not a multiclass algo.
+	# def KNeighbors(self):
+	# 	# weights => uniform and distance
+	# 	classification = KNeighborsClassifier(n_neighbors=10, weights='distance')
+	# 	classification.fit(self.X_train, self.y_train)
+	# 	return classification
+
 	def SVCclassifier(self):
 		# Classification is not good though result is quite good. Classifying everything as normal.
 		classification = svm.SVC(cache_size=500)
@@ -25,17 +37,26 @@ class Classifier:
 		return classification
 
 	def LinearSVCclassifier(self):
-		classification = svm.LinearSVC()
+		classification = svm.LinearSVC(penalty='l1', dual=False)
 		classification.fit_transform(self.X_train, self.y_train)
 		return classification
-		
+
+	def GaussianNBayes(self):
+		classification = GaussianNB()
+		classification.fit(self.X_train.toarray(), self.y_train)
+		return classification
 
 	def classify(self, classifier):
+		self.classifier = classifier
 		print "##########  Training using %s classifier. ##########\n\n\n" % classifier
 		if classifier == 'svc':
 			self.benchmark(self.SVCclassifier())
 		if classifier == 'linear':
 			self.benchmark(self.LinearSVCclassifier())
+		if classifier == 'gnb':
+			self.benchmark(self.GaussianNBayes())
+		# if classifier == 'kneighbors':
+		# 	self.benchmark(self.KNeighbors())
 
 	def __init__(self, classes, X_train, y_train, X_test, y_test, train_size, test_size):
 		self.classes = classes

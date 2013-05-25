@@ -31,14 +31,21 @@ def main(num_rows=10000, vector='hashing', classifier='svc'):
     project.run_classifier(classifier)
 
 if __name__ == '__main__':
-    # try:
-    if sys.argv[1] == 'default':
+    try:
+        default = ''
+        if len(sys.argv) == 2:
+            default = sys.argv[1]
+        else:
+            num_rows = int(sys.argv[1])
+            vector = sys.argv[2]
+            classifier = sys.argv[3]
+    except:
+        print "\nUsage: \npython main.py [number of rows] [vector type] [classification model]\nor\npython main.py default"
+        sys.exit(0)
+
+    if default == 'default':
         main()
     else:
-        num_rows = int(sys.argv[1])
-        vector = sys.argv[2]
-        classifier = sys.argv[3]
         main(num_rows, vector, classifier)
-    # except:
-        # print "\nUsage: \npython main.py [number of rows] [vector type] [classification model]\nor\n python main.py default"
+
 
