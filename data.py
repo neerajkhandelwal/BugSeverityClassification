@@ -72,7 +72,7 @@ class Data:
 					if resolution not in self.bugs_resolution:
 						self.bugs_resolution[resolution] = []
 					self.bugs_resolution[resolution].append(bug)
-		if wrt_feature == 'bugs':
+		if wrt_feature == 'all':
 			return self.bugs
 		if wrt_feature == 'status':
 			return self.bugs_status
