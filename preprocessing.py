@@ -79,6 +79,7 @@ class  Preprocess:
 
 	def tfidfVector(self):
 		vectorizer = TfidfVectorizer(min_df=1, max_df=.8, stop_words='english') #n_features: default, 1048576
+		# self.vectorizer = vectorizer
 		self.X_train = vectorizer.fit_transform(self.train_corpus)
 		self.train_size = self.X_train.shape[0]
 
@@ -90,7 +91,11 @@ class  Preprocess:
 	def chisquare(self):
 		print "######## Running chi squared for selecting best features. #########"
 		ch2 = SelectKBest(chi2, k=100)
+		# features = self.vectorizer.get_feature_names()
 		self.X_train = ch2.fit_transform(self.X_train, self.y_train)
+		# f = open("words.txt", "w+")
+		# for feature in ch2.get_support(indices=True):
+			# f.write(features[feature]+"\n")
 		self.train_size = self.X_train.shape[0]
 		# self.X_test = ch2.transform(self.X_test)
 		# self.test_size = self.X_test.shape[0]

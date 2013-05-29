@@ -78,7 +78,7 @@ if __name__ == '__main__':
                 chi2 = False
     except:
         print "\nUsage: "
-        print "python main.py [base(all/platform/os)] [method(pipeline/classifier)] [not use test train split(True/False)] [number of rows] [vector type(hashing/tfidf/count)] [classification model(linear/svc/gnb)] [chi2(chi2)]"
+        print "python main.py [base(all/platform/os)] [method(pipeline/classifier)] [not use test train split(True/False)] [number of rows] [vector type(hashing/tfidf/count)] [classification model(linear/svc/gnb/gd)] [chi2(chi2)]"
         print "\nor\n\npython main.py default"
         print "\nNote: All arguments are required. 'false' for 'not use test train split' do not work. chi2 is optional"
 
